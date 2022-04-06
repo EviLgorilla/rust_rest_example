@@ -36,9 +36,18 @@ impl CreatePerson for Person {
 }
 
 fn main() {
-    let person = Person::create("John");
-    let mut person_with_age = Person::create_with_age("John", 30);
-    person_with_age.set_age(40);
-    println!("{}", person.age.unwrap_or_default());
+    let mut person = Person::create("John");
+    let person_with_age = Person::create_with_age("John", 30);
+
+    match person.age {
+        Some(age) => println!("Check age: {}", age),
+        None => person.set_age(0),
+    }
+
+    if person.age.is_none() {
+        person.set_age(18);
+    }
+
+    println!("{}", person.age.unwrap());
     println!("{}", person_with_age.age.unwrap_or_default());
 }
