@@ -3,17 +3,27 @@ struct Person {
     age: Option<i32>,
 }
 
-impl Person {
-    fn new(name: &str, age: Option<i32>) -> Person {
-        Person {
+trait CreatePerson {
+    fn create(name: &str) -> Self;
+    fn create_with_age(name: &str, age: i32) -> Self;
+}
+
+impl CreatePerson for Person {
+    fn create(name: &str) -> Self {
+        Self {
             name: String::from(name),
-            age,
+            age: None
+        }
+    }
+    fn create_with_age(name: &str, age: i32) -> Self {
+        Self {
+            name: String::from(name),
+            age: Some(age),
         }
     }
 }
 
 fn main() {
-    let guess = "42".parse::<u32>().unwrap();
-    let person = Person::new("John", Some(42));
+    let person = Person::create_with_age("John", 30);
     println!("{}", person.age.unwrap());
 }
