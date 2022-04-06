@@ -24,6 +24,8 @@ impl CreatePerson for Person {
 }
 
 fn main() {
-    let person = Person::create_with_age("John", 30);
-    println!("{}", person.age.unwrap());
+    let person = Person::create("John");
+    let person_with_age = Person::create_with_age("John", 30);
+    println!("{}", person.age.unwrap_or_default());
+    println!("{}", person_with_age.age.unwrap_or_default());
 }
